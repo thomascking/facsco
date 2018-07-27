@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order</title>
+</head>
+<body>
+<h2>Available</h2>
+<table>
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Submitted</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for order in untaken %}
+            <tr>
+                <td>{{ order.user.get_full_name }}</td>
+                <td>{{ order.submitted }}</td>
+                <td><a href="/fulfillment/{{ order.pk }}/">Details</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Being Filled</h2>
+<table>
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Submitted</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for order in taken %}
+            <tr>
+                <td>{{ order.user.get_full_name }}</td>
+                <td>{{ order.submitted }}</td>
+                <td><a href="/fulfillment/{{ order.pk }}/">Details</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Filled</h2>
+<table>
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Submitted</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for order in filled %}
+            <tr>
+                <td>{{ order.user.get_full_name }}</td>
+                <td>{{ order.submitted }}</td>
+                <td><a href="/fulfillment/{{ order.pk }}/">Details</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
