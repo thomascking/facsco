@@ -1,5 +1,6 @@
 import csv
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from io import TextIOWrapper
 from rest_framework.response import Response
@@ -26,6 +27,7 @@ class ListProducts(APIView):
         return Response(resp)
 
 
+@login_required
 def upload_products(request):
     if request.FILES:
         file = TextIOWrapper(request.FILES['file'].file, encoding='ascii')
