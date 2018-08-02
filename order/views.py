@@ -22,7 +22,7 @@ class Order(APIView):
                 ProductOrder.objects.create(order=order, product=product_obj, quantity=product['quantity'])
 
         subject = 'New Order'
-        message = 'New order: http://104.236.73.253:8000/fulfillment/{0}/'.format(order.pk)
+        message = 'New order: http://104.236.73.253/fulfillment/{0}/'.format(order.pk)
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['james@facscosales.com', 'king.thomas.c@gmail.com', ]
         send_mail(subject, message, email_from, recipient_list)
