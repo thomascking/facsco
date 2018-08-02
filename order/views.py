@@ -32,7 +32,7 @@ class Order(APIView):
 
     def get(self, request, format=None):
         resp = []
-        orders = OrderModel.objects.filter(user=request.user)
+        orders = OrderModel.objects.filter(user=request.user).order_by('-submitted')
         for order in orders:
             resp.append({
                 "submitted": order.submitted,
