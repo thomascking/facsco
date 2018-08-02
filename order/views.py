@@ -30,6 +30,19 @@ class Order(APIView):
         return Response(resp)
 
 
+    def get(self, request, format=None):
+        resp = []
+        orders = OrderModel.objects.filter(user=request.user)
+        for order in orders:
+            resp.append({
+                "submitted": order.submitted,
+                "po": order.po,
+                "taken": bool(order.taken),
+                "filled": bool(order.filled)
+            })
+        return Response(resp)
+
+
 @login_required
 def order_details(request, pk):
     order = OrderModel.objects.get(pk=pk)
