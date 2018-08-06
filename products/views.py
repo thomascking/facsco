@@ -30,7 +30,7 @@ class ListProducts(APIView):
                 resp.append(
                     {
                         "group": group.name,
-                        "products": [{"number": p.product_number, "name": p.name} for p in products],
+                        "products": p_list,
                     }
                 )
         return Response(resp)
