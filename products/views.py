@@ -16,8 +16,17 @@ class ListProducts(APIView):
         company = request.user.userprofile.group
         resp = []
         for group in groups:
-            products = group.product_set.filter(company=company).distinct('product_number')
+            products = group.product_set.filter(company=company)
             if products:
+                p_list = []
+                used = []
+                for product in products:
+                    if product.product_number not in used:
+                        p_list.append({
+                            "number": product.product_number,
+                            "name": product.name
+                        })
+                        used.append(product.product_number)
                 resp.append(
                     {
                         "group": group.name,
