@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from rest_framework.response import Response
@@ -24,7 +25,10 @@ class Order(APIView):
         subject = 'New Order'
         message = 'New order: http://104.236.73.253/fulfillment/{0}/'.format(order.pk)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['james@facscosales.com', 'king.thomas.c@gmail.com', ]
+        recipient_list = []
+        staff = User.objects.filter(is_staff=True)
+        for user in staff:
+            recipient_list.append(user.email)
         send_mail(subject, message, email_from, recipient_list)
         resp = {"status": "success"}
         return Response(resp)
@@ -41,6 +45,25 @@ class Order(APIView):
                 "filled": bool(order.filled)
             })
         return Response(resp)
+
+
+class OrderDetails(APIView):
+    def get(self, request, pk, format=None):
+        order = OrderModel.objects.get(pk=pk)
+        products = []
+        pos = ProductOrder.objects.filter(order=order)
+        for product in pos:
+            products.append({
+                'number': product.product.product_number,
+                'quantity': product.quantity,
+                'name': product.product.name
+            })
+        return Response({
+            'submitted': order.submitted,
+            'products': products,
+            'notes': order.notes,
+            'po': order.po
+        })
 
 
 @login_required

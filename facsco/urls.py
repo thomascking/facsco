@@ -19,13 +19,14 @@ from django.urls import path
 from rest_framework.authtoken import views as rest_framework_views
 
 from products.views import ListProducts, upload_products
-from order.views import Order, order_details, order_list, order_take, order_fill
+from order.views import Order, order_details, order_list, order_take, order_fill, OrderDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', rest_framework_views.obtain_auth_token),
     path('products/', ListProducts.as_view()),
     path('order/', Order.as_view()),
+    path('order/<int:pk>/', OrderDetails.as_view()),
     path('fulfillment/', order_list),
     path('fulfillment/<int:pk>/', order_details),
     path('fulfillment/<int:pk>/take/', order_take),

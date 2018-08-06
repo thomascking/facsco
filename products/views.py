@@ -16,7 +16,7 @@ class ListProducts(APIView):
         company = request.user.userprofile.group
         resp = []
         for group in groups:
-            products = group.product_set.filter(company=company)
+            products = group.product_set.filter(company=company).distinct('product_number')
             if products:
                 resp.append(
                     {
