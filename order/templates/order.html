@@ -5,7 +5,10 @@
 </head>
 <body>
 <h3>{{ profile.group }}</h3>
-<h3>{{ order.user.username }}</h3>
+<h3>{{ order.user.get_full_name }}</h3>
+<h4>PO:{{ order.po }}</h4>
+
+<p>{{ order.notes }}</p>
 
 <table>
     <thead>
