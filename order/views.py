@@ -42,7 +42,8 @@ class Order(APIView):
                 "submitted": order.submitted,
                 "po": order.po,
                 "taken": bool(order.taken),
-                "filled": bool(order.filled)
+                "filled": bool(order.filled),
+                "pk": order.pk
             })
         return Response(resp)
 
